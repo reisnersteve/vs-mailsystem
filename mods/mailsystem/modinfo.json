@@ -1,0 +1,12 @@
+{
+  "type": "code",
+  "modid": "mailsystem",
+  "name": "mailsystem",
+  "authors": ["reisnersteve"],
+  "description": "Adds a mail system to the game",
+  "version": "0.2.4",
+  "dependencies": {
+    "game": "1.18.1"
+  },
+  "side": "Server"
+}

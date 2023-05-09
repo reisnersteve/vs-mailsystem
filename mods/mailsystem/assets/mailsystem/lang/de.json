@@ -1,0 +1,23 @@
+{
+  "snd-to-player": "Sende einem Spieler eine Mail.",
+  "snd-to-player-additional": "[Spielername] [Nachricht]",
+  "playername": "Spielername",
+  "list-all": "Zeigt dir deinen Posteingang.",
+  "read": "Lies eine Mail.",
+  "read-additional": "[id], Liste mit /mail list",
+  "delete": "Lösche eine Mail.",
+  "delete-additional": "[id], Liste mit /mail list",
+  "notify-onjoin": "Du hast ungelesene Mails!",
+  "new-mail-notify": "Du hast eine neue Mail!",
+  "log-nomail": "{0} hat keine Mails.",
+  "sent": "Mail gesendet.",
+  "not-found": "Mail nicht gefunden.",
+  "player-not-existing": "Spieler nicht gefunden. War die Person je online?",
+  "maximum-mails-inbox": "Die Person hat die maximale Anzahl an Mails erreicht. Mail nicht gesendet.",
+  "no-mails-found": "Keine Mails gefunden.",
+  "you-have-no-mails": "Du hast keine Mails.",
+  "show-data": "{0}: Von: {1}, Gelesen: {2}, Gesendet am: {3}",
+  "show-mail": "Von: {0}Gesendet am: {1}Nachricht: {2}",
+  "deleted": "Mail gelöscht."
+
+}

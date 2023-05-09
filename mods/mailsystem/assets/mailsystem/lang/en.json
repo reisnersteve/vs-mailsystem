@@ -1,0 +1,23 @@
+{
+  "snd-to-player": "Send a mail to a player.",
+  "snd-to-player-additional": "[target name] [message]",
+  "playername": "playername",
+  "list-all": "Get a list of mails in your inbox.",
+  "read": "Read a mail.",
+  "read-additional": "[id], list with /mail list",
+  "delete": "Delete a mail.",
+  "delete-additional": "[id], list with /mail list",
+  "notify-onjoin": "You have unread mail!",
+  "new-mail-notify": "You got mail!",
+  "log-nomail": "{0} does not have any mails.",
+  "sent": "Mail sent.",
+  "not-found": "Mail not found.",
+  "player-not-existing": "Player not found. Have they ever been online?",
+  "maximum-mails-inbox": "The person has reached the maximum amount of mails. Mail not sent.",
+  "no-mails-found": "No mails found.",
+  "you-have-no-mails": "You don't have any mails.",
+  "show-data": "{0}: Sender: {1}, Read: {2}, Sent on {3}",
+  "show-mail": "From: {0}Sent on: {1}Message: {2}",
+  "deleted": "Mail removed."
+
+}

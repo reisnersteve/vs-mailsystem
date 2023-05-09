@@ -396,3 +396,14 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+ICSharpCode.SharpZipLib.dll
+mods/mailsystem/.ignore
+modtools.command
+modtools.temp
+Newtonsoft.Json.dll
+packages.config
+Properties/AssemblyInfo.cs
+README.md
+VSModLauncher.csproj
+VSMods.sln
+vsmodtools.exe
