@@ -1,9 +1,9 @@
 # vs-mailsystem
- A Vintage Story Mod adding a mailsystem
+ A Vintage Story Mod adding a mailsystem <br />
  
- Commands:
+ Commands:<br />
  
- /mail send - Send a mail
- /mail list - Get a list of mails with ids
- /mail read - read a mail, get the id with /mail list
- /mail dete - delete a mail, get the id with /mail list
+ /mail send - Send a mail<br />
+ /mail list - Get a list of mails with ids<br />
+ /mail read - read a mail, get the id with /mail list<br />
+ /mail dete - delete a mail, get the id with /mail list<br />
