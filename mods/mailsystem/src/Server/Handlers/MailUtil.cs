@@ -1,7 +1,5 @@
 ﻿using mailsystem.src.Handlers;
 using System;
-using System.Text;
-using System.Xml.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Server;
