@@ -63,15 +63,17 @@ namespace mailsystem.src
                 .HandleWith(MailHandler.SendMassmail);
 
 
-            InitSystems();
-
             Config = _api.LoadModConfig<MailConfig>("MailConfig.json");
             if (Config == null)
             {
                 _api.StoreModConfig(new MailConfig(10), "MailConfig.json");
                 Config = new MailConfig(10);
             }
-                    
+
+
+            InitSystems();
+
+
             base.StartServerSide(api);
 
         }
