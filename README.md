@@ -7,3 +7,4 @@
  /mail list - Get a list of mails with ids<br />
  /mail read - read a mail, get the id with /mail list<br />
  /mail dete - delete a mail, get the id with /mail list<br />
+ /massmail - Send a mail to every player. Requires the "announce" privilege. <br />
