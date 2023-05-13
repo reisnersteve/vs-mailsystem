@@ -18,6 +18,10 @@
   "you-have-no-mails": "You don't have any mails.",
   "show-data": "{0}: Sender: {1}, Read: {2}, Sent on {3}",
   "show-mail": "From: {0}Sent on: {1}Message: {2}",
-  "deleted": "Mail removed."
+  "deleted": "Mail removed.",
+  "massmail-cmd": "Send a mail to ALL players. This may take a while!",
+  "massmail-sending": "Sending mail to all players...",
+  "massmail-done": "Mail sent to all players."
+
 
 }

@@ -1,4 +1,5 @@
 ﻿using mailsystem.src.Handlers;
+using mailsystem.src.Server;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,11 @@ namespace mailsystem.src
 {
     public class Mailsystem : ModSystem
     {
+
+        public static MailConfig Config;
+
         ICoreServerAPI _api;
+
 
         public override bool ShouldLoad(EnumAppSide forSide)
         {
@@ -21,10 +26,13 @@ namespace mailsystem.src
         {
             _api = api;
 
+            _api.Event.PlayerNowPlaying += PlayerNowPlaying;
+            _api.Event.ServerRunPhase(EnumServerRunPhase.RunGame, AllReady);
+
             CommandArgumentParsers parsers = _api.ChatCommands.Parsers;
 
             _api.ChatCommands.Create("mail")
-                .RequiresPrivilege("chat")
+                .RequiresPrivilege(Privilege.chat)
                 .BeginSubCommand("send")
                     .WithDescription(Lang.Get("mailsystem:snd-to-player"))
                     .WithAdditionalInformation(Lang.Get("mailsystem:snd-to-player-additional"))
@@ -48,17 +56,27 @@ namespace mailsystem.src
                     .HandleWith(MailHandler.Delete)
                 .EndSubCommand();
 
+            _api.ChatCommands.Create("massmail")
+                .RequiresPrivilege(Privilege.announce)
+                .WithAdditionalInformation(Lang.Get("mailsystem:massmail-cmd"))
+                .WithArgs(parsers.All("text"))
+                .HandleWith(MailHandler.SendMassmail);
 
-            _api.Event.PlayerNowPlaying += PlayerNowPlaying;
-            _api.Event.ServerRunPhase(EnumServerRunPhase.RunGame, AllReady);
 
             InitSystems();
-            base.StartServerSide(api);
 
+            Config = _api.LoadModConfig<MailConfig>("MailConfig.json");
+            if (Config == null)
+            {
+                _api.StoreModConfig(new MailConfig(10), "MailConfig.json");
+                Config = new MailConfig(10);
+            }
+                    
+            base.StartServerSide(api);
 
         }
 
-        private void AllReady()
+        public void AllReady()
         {
             Lang.Load(_api.Logger, _api.Assets, Lang.CurrentLocale);
         }
@@ -82,7 +100,6 @@ namespace mailsystem.src
                 }
                 if (hasUnread)
                 {
-
                     _api.SendMessage(
                         byPlayer, 
                         GlobalConstants.GeneralChatGroup, 

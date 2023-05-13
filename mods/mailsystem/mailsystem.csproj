@@ -68,6 +68,7 @@
     <Compile Include="src\Server\Handlers\Handler.cs" />
     <Compile Include="src\Server\Handlers\MailHandler.cs" />
     <Compile Include="src\Server\Mail.cs" />
+    <Compile Include="src\Server\MailConfig.cs" />
     <Compile Include="src\Server\Mailsystem.cs" />
     <Compile Include="src\Server\Handlers\MailUtil.cs" />
     <Compile Include="src\Client\UI\UI.cs" />

@@ -15,13 +15,13 @@ namespace mailsystem.src.Handlers
         {
             _api = api;
         }
+
         public static TextCommandResult Send(TextCommandCallingArgs args)
         {
 
             string receiverName = args[0].ToString();
             Mail workMail = MailUtil.CreateMail(args.Caller.Player.PlayerName, receiverName, args.LastArg.ToString());
             List<Mail> mails;
-
 
             string workingData = MailUtil.GetMailDataForPlayer(receiverName);
 
@@ -41,12 +41,10 @@ namespace mailsystem.src.Handlers
                 return TextCommandResult.Success(Lang.Get("mailsystem:sent"));
             }
 
-
-
             mails = JsonConvert.DeserializeObject<List<Mail>>(MailUtil.GetMailDataForPlayer(receiverName));
 
 
-            if (mails.Count >= 10) return TextCommandResult.Error(Lang.Get("mailsystem:maximum-mails-inbox"));
+            if (mails.Count >= Mailsystem.Config.MaximumMailsPerPlayer) return TextCommandResult.Error(Lang.Get("mailsystem:maximum-mails-inbox"));
 
             mails.Add(workMail);
 
@@ -75,7 +73,6 @@ namespace mailsystem.src.Handlers
                 output += string.Format(Lang.Get("mailsystem:show-data"),i, mails[i].Sender, mails[i].IsRead, mails[i].SentDate);
                 output += "\n";
             }
-
 
             return TextCommandResult.Success(output);
         }
@@ -125,6 +122,15 @@ namespace mailsystem.src.Handlers
             }
             catch (Exception e) { return TextCommandResult.Error(Lang.Get("mailsystem:not-found")); }
 
+        }
+
+        public static TextCommandResult SendMassmail(TextCommandCallingArgs args)
+        {
+            _api.SendMessage(args.Caller.Player, GlobalConstants.GeneralChatGroup, Lang.Get("mailsystem:massmail-sending"), EnumChatType.Notification);
+
+            MailUtil.SendMailToAllPlayers(args[0].ToString());
+
+            return TextCommandResult.Success(Lang.Get("mailsystem:massmail-done"));
         }
     }
 }

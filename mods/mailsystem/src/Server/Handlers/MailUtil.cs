@@ -1,5 +1,7 @@
 ﻿using mailsystem.src.Handlers;
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Server;
@@ -14,6 +16,7 @@ namespace mailsystem.src
         {
             _api = api;
         }
+
         public static Mail CreateMail(string sender, string receiver, string message)
         {
             return new Mail(sender, receiver, message, DateTime.Now);
@@ -59,6 +62,36 @@ namespace mailsystem.src
             }
             catch { _api.Logger.Log(EnumLogType.Notification, "Tried to notify player, player not online."); }
 
+        }
+
+        public static void SendMailToAllPlayers(string text)
+        {
+            try
+            {
+                Mail adminMail = CreateMail("Admin", "You", text);
+                Dictionary<string, IServerPlayerData> playerData = _api.PlayerData.PlayerDataByUid;
+
+                List<Mail> mailList;
+
+                foreach (var item in playerData)
+                {
+                    mailList = new List<Mail>();
+
+                    string jsonData = GetMailDataForPlayer(item.Value.LastKnownPlayername);
+                    if (jsonData == null)
+                    {
+                        mailList.Add(adminMail);
+                        SetMailDataForPlayer(item.Value.LastKnownPlayername, JsonConvert.SerializeObject(mailList));
+                        NotifyPlayerIfOnline(item.Value.LastKnownPlayername);
+                        continue;
+                    }
+                    mailList = JsonConvert.DeserializeObject<List<Mail>>(jsonData);
+                    mailList.Add(adminMail);
+                    SetMailDataForPlayer(item.Value.LastKnownPlayername, JsonConvert.SerializeObject(mailList));
+                    NotifyPlayerIfOnline(item.Value.LastKnownPlayername);
+                }
+            }
+            catch { _api.Logger.Log(EnumLogType.Error, "Could not send admin mail"); }
         }
     }
 }

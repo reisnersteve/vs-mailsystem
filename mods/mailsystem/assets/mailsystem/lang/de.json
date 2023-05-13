@@ -18,6 +18,10 @@
   "you-have-no-mails": "Du hast keine Mails.",
   "show-data": "{0}: Von: {1}, Gelesen: {2}, Gesendet am: {3}",
   "show-mail": "Von: {0}Gesendet am: {1}Nachricht: {2}",
-  "deleted": "Mail gelöscht."
+  "deleted": "Mail gelöscht.",
+  "massmail-cmd": "Sende eine Mail an ALLE Spieler. Kann sehr lange dauern!",
+  "massmail-sending": "Sende die Mail an alle Spieler...",
+  "massmail-done": "Mail wurde an alle Spieler gesendet."
+
 
 }
