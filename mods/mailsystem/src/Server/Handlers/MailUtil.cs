@@ -58,7 +58,11 @@ namespace mailsystem.src
             try
             {
                 IPlayer receiver = GetPlayerByName(player);
-                if (receiver != null) _api.SendMessage(receiver, GlobalConstants.GeneralChatGroup, $"<strong>{Lang.Get("mailsystem:new-mail-notify")}</strong>", EnumChatType.Notification);
+                if (receiver != null)
+                {
+                    _api.SendMessage(receiver, GlobalConstants.GeneralChatGroup, $"<strong>{Lang.Get("mailsystem:new-mail-notify")}</strong>", EnumChatType.Notification);
+                    _api.World.PlaySoundFor(new AssetLocation("game", "sounds/effect/receptionbell"), receiver, false, 32f, 0.5f);
+                }
             }
             catch { _api.Logger.Log(EnumLogType.Notification, "Tried to notify player, player not online."); }
 

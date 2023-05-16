@@ -109,6 +109,8 @@ namespace mailsystem.src
                         $"{Lang.Get("mailsystem:notify-onjoin")} " +
                         $"</strong>", 
                         EnumChatType.Notification);
+
+                    _api.World.PlaySoundFor(new AssetLocation("game", "sounds/effect/receptionbell"), byPlayer, false, 32f, 0.5f);
                 }
             }
             catch(Exception e) { _api.Logger.Log(EnumLogType.Notification, string.Format(Lang.Get("mailsystem:log-nomail"), byPlayer.PlayerName));  }
