@@ -21,7 +21,19 @@
   "deleted": "Mail gelöscht.",
   "massmail-cmd": "Sende eine Mail an ALLE Spieler. Kann sehr lange dauern!",
   "massmail-sending": "Sende die Mail an alle Spieler...",
-  "massmail-done": "Mail wurde an alle Spieler gesendet."
-
+  "massmail-done": "Mail wurde an alle Spieler gesendet.",
+  "ui-title": "Mail-System",
+  "ui-send": "E-Mail senden",
+  "ui-inbox": "Posteingang",
+  "ui-receiver": "Empfänger:",
+  "ui-message": "Nachricht:",
+  "ui-send-btn": "Senden",
+  "ui-inbox-title": "Deine E-Mails:",
+  "ui-mail-content": "E-Mail-Inhalt:",
+  "ui-delete-btn": "Löschen",
+  "ui-error-no-receiver": "Bitte gib einen Empfängernamen ein.",
+  "ui-error-no-message": "Bitte gib eine Nachricht ein.",
+  "ui-mail-sent": "E-Mail erfolgreich gesendet.",
+  "open-gui": "Öffnet die Mail-System-Benutzeroberfläche"
 
 }

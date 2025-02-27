@@ -60,7 +60,7 @@ namespace mailsystem.src.Handlers
         {
             string workingData = MailUtil.GetMailDataForPlayer(args.Caller.Player.PlayerName);
 
-            if(workingData == null) { return TextCommandResult.Error(Lang.Get("mailsystem:no-mails-found")); }
+            if (workingData == null) { return TextCommandResult.Error(Lang.Get("mailsystem:no-mails-found")); }
 
             List<Mail> mails = JsonConvert.DeserializeObject<List<Mail>>(workingData);
 
@@ -70,7 +70,13 @@ namespace mailsystem.src.Handlers
 
             for (int i = 0; i < mails.Count; i++)
             {
-                output += string.Format(Lang.Get("mailsystem:show-data"),i, mails[i].Sender, mails[i].IsRead, mails[i].SentDate);
+                // Use string.Format with the Lang.Get string but provide ALL required arguments
+                output += string.Format(Lang.Get("mailsystem:show-data"),
+                    i,                    // {0}: Index
+                    mails[i].Sender,      // {1}: Sender
+                    mails[i].IsRead,      // {2}: Read status
+                    mails[i].SentDate     // {3}: Sent date
+                );
                 output += "\n";
             }
 
@@ -89,8 +95,12 @@ namespace mailsystem.src.Handlers
             {
                 int index = int.Parse(args[0].ToString());
 
-                string output = "";
-                output += string.Format(Lang.Get("mailsystem:show-mail"), mails[index].Sender + "\n", mails[index].SentDate + "\n", mails[index].Message);
+                // Use string.Format with the Lang.Get string but provide ALL required arguments
+                string mailFrom = mails[index].Sender + "\n"; // Note the newline added to match the format
+                string mailDate = mails[index].SentDate + "\n"; // Note the newline added to match the format
+                string mailMessage = mails[index].Message;
+
+                string output = string.Format(Lang.Get("mailsystem:show-mail"), mailFrom, mailDate, mailMessage);
 
                 mails[index].IsRead = true;
 
@@ -98,8 +108,7 @@ namespace mailsystem.src.Handlers
 
                 return TextCommandResult.Success(output);
             }
-            catch(Exception e) { return TextCommandResult.Error(Lang.Get("mailsystem:not-found")); }
-
+            catch (Exception e) { return TextCommandResult.Error(Lang.Get("mailsystem:not-found")); }
         }
 
         public static TextCommandResult Delete(TextCommandCallingArgs args)

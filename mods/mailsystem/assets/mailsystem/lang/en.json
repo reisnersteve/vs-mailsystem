@@ -21,7 +21,18 @@
   "deleted": "Mail removed.",
   "massmail-cmd": "Send a mail to ALL players. This may take a while!",
   "massmail-sending": "Sending mail to all players...",
-  "massmail-done": "Mail sent to all players."
-
-
+  "massmail-done": "Mail sent to all players.",
+  "ui-title": "Mail System",
+  "ui-send": "Send Mail",
+  "ui-inbox": "Inbox",
+  "ui-receiver": "Recipient:",
+  "ui-message": "Message:",
+  "ui-send-btn": "Send",
+  "ui-inbox-title": "Your Mails:",
+  "ui-mail-content": "Mail Content:",
+  "ui-delete-btn": "Delete",
+  "ui-error-no-receiver": "Please enter a recipient name.",
+  "ui-error-no-message": "Please enter a message.",
+  "ui-mail-sent": "Mail sent successfully.",
+  "open-gui": "Opens the mail system GUI"
 }

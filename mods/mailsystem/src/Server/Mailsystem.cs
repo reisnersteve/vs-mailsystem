@@ -1,5 +1,6 @@
 ﻿using mailsystem.src.Handlers;
 using mailsystem.src.Server;
+using mailsystem.src.Network;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,10 @@ namespace mailsystem.src
 {
     public class Mailsystem : ModSystem
     {
-
         public static MailConfig Config;
 
         ICoreServerAPI _api;
-
+        NetworkMailSystem _networkSystem;
 
         public override bool ShouldLoad(EnumAppSide forSide)
         {
@@ -27,7 +27,6 @@ namespace mailsystem.src
             _api = api;
 
             _api.Event.PlayerNowPlaying += PlayerNowPlaying;
-            _api.Event.ServerRunPhase(EnumServerRunPhase.RunGame, AllReady);
 
             CommandArgumentParsers parsers = _api.ChatCommands.Parsers;
 
@@ -54,6 +53,10 @@ namespace mailsystem.src
                     .WithAdditionalInformation(Lang.Get("mailsystem:delete-additional"))
                     .WithArgs(parsers.Int("id"))
                     .HandleWith(MailHandler.Delete)
+                .EndSubCommand()
+                .BeginSubCommand("gui")
+                    .WithDescription(Lang.Get("mailsystem:open-gui"))
+                    .HandleWith(OpenMailGui)
                 .EndSubCommand();
 
             _api.ChatCommands.Create("massmail")
@@ -62,6 +65,8 @@ namespace mailsystem.src
                 .WithArgs(parsers.All("text"))
                 .HandleWith(MailHandler.SendMassmail);
 
+            // Get the network system
+            _networkSystem = _api.ModLoader.GetModSystem<NetworkMailSystem>();
 
             Config = _api.LoadModConfig<MailConfig>("MailConfig.json");
             if (Config == null)
@@ -70,24 +75,15 @@ namespace mailsystem.src
                 Config = new MailConfig(10);
             }
 
-
             InitSystems();
 
-
             base.StartServerSide(api);
-
-        }
-
-        public void AllReady()
-        {
-            Lang.Load(_api.Logger, _api.Assets, Lang.CurrentLocale);
         }
 
         public void PlayerNowPlaying(IServerPlayer byPlayer)
         {
             try
             {
-
                 List<Mail> mailList = JsonConvert.DeserializeObject<List<Mail>>(MailUtil.GetMailDataForPlayer(byPlayer.PlayerName));
                 bool hasUnread = false;
 
@@ -97,24 +93,36 @@ namespace mailsystem.src
                     {
                         hasUnread = true;
                         break;
-
                     }
                 }
                 if (hasUnread)
                 {
                     _api.SendMessage(
-                        byPlayer, 
-                        GlobalConstants.GeneralChatGroup, 
+                        byPlayer,
+                        GlobalConstants.GeneralChatGroup,
                         $"<strong>" +
                         $"{Lang.Get("mailsystem:notify-onjoin")} " +
-                        $"</strong>", 
+                        $"</strong>",
                         EnumChatType.Notification);
 
                     _api.World.PlaySoundFor(new AssetLocation("game", "sounds/effect/receptionbell"), byPlayer, false, 32f, 0.5f);
                 }
             }
-            catch(Exception e) { _api.Logger.Log(EnumLogType.Notification, string.Format(Lang.Get("mailsystem:log-nomail"), byPlayer.PlayerName));  }
+            catch (Exception e) { _api.Logger.Log(EnumLogType.Notification, string.Format(Lang.Get("mailsystem:log-nomail"), byPlayer.PlayerName)); }
         }
+
+        private TextCommandResult OpenMailGui(TextCommandCallingArgs args)
+        {
+            // Use network system to tell client to open GUI
+            if (_networkSystem != null && args.Caller.Player is IServerPlayer player)
+            {
+                _networkSystem.ServerRequestGuiOpen(player);
+                return TextCommandResult.Success();
+            }
+
+            return TextCommandResult.Error("Could not open mail GUI");
+        }
+
         private void InitSystems()
         {
             new MailHandler().Initialize(_api);

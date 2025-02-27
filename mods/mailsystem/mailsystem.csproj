@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>mailsystem</RootNamespace>
     <AssemblyName>mailsystem</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -72,6 +72,7 @@
     <Compile Include="src\Server\Mailsystem.cs" />
     <Compile Include="src\Server\Handlers\MailUtil.cs" />
     <Compile Include="src\Client\UI\UI.cs" />
+    <Compile Include="src\Server\Network-Mailsystem.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
